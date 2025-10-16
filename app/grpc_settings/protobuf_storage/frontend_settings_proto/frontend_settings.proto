@@ -1,0 +1,42 @@
+syntax = "proto3";
+package frontend_settings;
+
+
+service FrontendSettings {
+  rpc SetDefaultPaletteForItems (RequestObjectForPalette) returns (WrongKpiIds) {}
+  rpc SetCustomColorRangeForKPI (RequestToSetCustomPalette) returns (WrongKpiIds) {}
+
+}
+
+message PreferenceInstances{
+  repeated PreferenceInstance preference_instances = 1;
+}
+
+
+message RequestObjectForPalette {
+   map<int32, PreferenceInstances> tmo_id_preference = 1;
+}
+
+message PreferenceInstance{
+     string preference_name = 1;
+     string val_type = 2;
+     int32 kpi_id = 3;
+}
+
+message WrongKpiIds {
+   repeated int32 wrong_kpi_ids = 1;
+}
+
+
+message PreferenceInstanceForWithPalette{
+     string preference_name = 1;
+     string val_type = 2;
+     int32 kpi_id = 3;
+     string palette = 4;
+     int32 object_type_id = 5;
+}
+
+message RequestToSetCustomPalette {
+    repeated PreferenceInstanceForWithPalette preference_instances = 1;
+
+}
